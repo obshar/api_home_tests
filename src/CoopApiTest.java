@@ -66,8 +66,8 @@ public class CoopApiTest {
         assertEquals(200, response.getStatusCode());
         assertEquals(response.getHeader("Content-Type"), "application/json");
         String message = response.jsonPath().get("message");
-        String dataNoINT = response.jsonPath().getString("data");
-        if (dataNoINT == null) {
+        String dataString = response.jsonPath().getString("data");
+        if (dataString == null) {
             assertEquals(message, secondMessageExpected);
             return;
         }
