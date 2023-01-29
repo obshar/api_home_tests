@@ -63,6 +63,8 @@ public class CoopApiTest {
         Response response = RestAssured.given().header("Authorization", "Bearer " + token).post(getFullUrl("eggs-collect"));
 
         //Asserts
+        assertEquals(200, response.getStatusCode());
+        assertEquals(response.getHeader("Content-Type"), "application/json");
         String message = response.jsonPath().get("message");
         String dataNoINT = response.jsonPath().getString("data");
         if (dataNoINT == null) {
@@ -72,8 +74,6 @@ public class CoopApiTest {
         int data = response.jsonPath().getInt("data");
         String messageExpected = "Hey look at that, " + data + " eggs have been collected!";
         assertNotNull(message);
-        assertEquals(200, response.getStatusCode());
-        assertEquals(response.getHeader("Content-Type"), "application/json");
         assertEquals(message, messageExpected);
     }
 }
